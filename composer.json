@@ -1,35 +1,40 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "ryangjchandler/downmark",
+    "description": "A speedy Markdown parser for PHP applications.",
     "keywords": [
-        ":vendor_name",
-        ":package_slug"
+        "ryangjchandler",
+        "downmark"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/ryangjchandler/downmark",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Ryan Chandler",
+            "email": "support@ryangjchandler.co.uk",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "illuminate/macroable": "^9.5"
     },
     "require-dev": {
+        "erusev/parsedown": "^1.7",
         "friendsofphp/php-cs-fixer": "^3.0",
+        "league/commonmark": "^2.2",
+        "michelf/php-markdown": "^1.9",
         "pestphp/pest": "^1.20",
+        "phpbench/phpbench": "^1.2",
         "spatie/ray": "^1.28"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Downmark\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Downmark\\Tests\\": "tests"
         }
     },
     "scripts": {

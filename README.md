@@ -1,45 +1,107 @@
+# A speedy Markdown parser for PHP applications.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ryangjchandler/downmark.svg?style=flat-square)](https://packagist.org/packages/ryangjchandler/downmark)
+[![Tests](https://github.com/ryangjchandler/downmark/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/ryangjchandler/downmark/actions/workflows/run-tests.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/ryangjchandler/downmark.svg?style=flat-square)](https://packagist.org/packages/ryangjchandler/downmark)
 
-# :package_description
+This is a super lightweight Markdown parser for PHP projects and applications. It has a rather verbose but powerful extension API for adding custom blocks and inline elements.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![Tests](https://github.com/:vendor_slug/:package_slug/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/:vendor_slug/:package_slug/actions/workflows/run-tests.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This package can be used as to scaffold a framework agnostic package. Follow these steps to get started:
+## Features
 
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this skeleton
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
+At the moment, Downmark has support for the following Markdown blocks:
 
-## Support us
+* Headings (h1 - h6)
+* Blockquotes (multi-line support)
+* Single-level unordered and ordered lists
+* Backtick-delimited code blocks
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
+It also has support for the following inline elements:
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+* Links
+* Images
+* Bold, italic and strikethrough
+* Inline code
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via Composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require ryangjchandler/downmark
 ```
 
 ## Usage
 
+To parse a string of Markdown and compile it to HTML, do the following:
+
 ```php
-$skeleton = new VendorName\Skeleton();
-echo $skeleton->echoPhrase('Hello, VendorName!');
+use Downmark\Downmark;
+
+$parser = Downmark::create();
+
+$html = $parser->parse('**Hello!**');
 ```
+
+### Block extensions
+
+To create a custom block-level extensions, you first need to register it with the parser:
+
+```php
+use Downmark\Blocks\Block;
+
+Downmark::create()
+    ->block("/::: (.*)/", function (array $matches): Block {
+
+    });
+```
+
+The `Downmark::block()` methods accepts 2 arguments. The first is a regular expression, used by the parser to find the start of your block. The second is a `Closure` that should return an instance of `Downmark\Blocks\Block`.
+
+You can create an object that extends the `Downmark\Blocks\Block` class. This class only requires you to implement a single `public toHtml(): string` method.
+
+```php
+use Downmark\Blocks\Block;
+
+class NoticeBlock extends Block
+{
+    public function __construct(
+        protected ?string $content = '',
+    ) {}
+
+    public function toHtml(): string
+    {
+        return '<div class="notice">' . $this->content . '</div>';
+    }
+}
+```
+
+Inside of the extension callback, you can return an instance of `NoticeBlock`.
+
+```php
+Downmark::create()
+    ->block("/::: (.*)/", function (array $matches): Block {
+        return new NoticeBlock($matches[1]);
+    });
+```
+
+When the parser compiles your Markdown, it will check if this block matches and execute the callback function.
+
+> **Note**: Documentation on building multi-line blocks coming soon... If you're super eager, source-dive the tests to find out how it works.
+
+### Inline extensions
+
+Downmark also provides an API for extending Markdown with custom inline elements. The example below extends Downmark to support a "mention" syntax that generates links to Twitter profiles.
+
+```php
+Downmark::create()
+    // Look for any inline text that matches a single `@` character followed by 1 to 15 alphanumeric (incl. underscore) characters.
+    ->inline("/@([A-Za-z0-9_]{1,15})(?!\w)/", function (array $matches): string {
+        return sprintf('<a href="https://twitter.com/%s" target="_blank">%s</a>', $matches[1], $matches[0]);
+    });
+```
+
+The callback function should return a `string`. This will be used to replace the regular-expression match.
 
 ## Testing
 
@@ -61,7 +123,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Ryan Chandler](https://github.com/ryangjchandler)
 - [All Contributors](../../contributors)
 
 ## License
