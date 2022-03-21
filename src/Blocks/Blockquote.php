@@ -8,7 +8,6 @@ class Blockquote extends Block
 {
     public function __construct(public string $content)
     {
-
     }
 
     public function toHtml(): string

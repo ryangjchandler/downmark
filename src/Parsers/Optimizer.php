@@ -3,11 +3,11 @@
 namespace Downmark\Parsers;
 
 use Downmark\Blocks\Blank;
-use Downmark\Blocks\ListItem;
 use Downmark\Blocks\Blockquote;
+use Downmark\Blocks\ListItem;
 use Downmark\Blocks\OrderedList;
-use Downmark\Enums\ListItemType;
 use Downmark\Blocks\UnorderedList;
+use Downmark\Enums\ListItemType;
 
 final class Optimizer
 {
@@ -40,6 +40,7 @@ final class Optimizer
                     $i += 1;
                 }
                 $optimised[] = new Blockquote($content);
+
                 continue;
             }
 

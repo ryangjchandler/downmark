@@ -2,11 +2,10 @@
 
 namespace Downmark\Tests\Benchmarks;
 
-use Parsedown;
 use Downmark\Downmark;
-use Michelf\MarkdownExtra;
 use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
+use Michelf\MarkdownExtra;
+use Parsedown;
 
 class SinkBench
 {
@@ -47,7 +46,7 @@ class SinkBench
     public function benchParsedown()
     {
         for ($i = 0; $i < 10; $i++) {
-            (new Parsedown)->parse($this->sink);
+            (new Parsedown())->parse($this->sink);
         }
     }
 

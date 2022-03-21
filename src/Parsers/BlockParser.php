@@ -4,11 +4,11 @@ namespace Downmark\Parsers;
 
 use Closure;
 use Downmark\Blocks\Block;
+use Downmark\Blocks\Blockquote;
+use Downmark\Blocks\CodeBlock;
 use Downmark\Blocks\Heading;
 use Downmark\Blocks\ListItem;
 use Downmark\Blocks\Paragraph;
-use Downmark\Blocks\Blockquote;
-use Downmark\Blocks\CodeBlock;
 use Downmark\Enums\HeadingLevel;
 use Downmark\Enums\ListItemType;
 use Spatie\Macroable\Macroable;
@@ -18,12 +18,12 @@ class BlockParser
 {
     use Macroable;
 
-    const HEADING_PATTERN = "/^(#{1,6}) +(.*)/";
-    const QUOTE_PATTERN = "/^> ?(.*)?/";
-    const UNORDERED_LIST_ITEM_PATTERN = "/^- ?(.*)?/";
-    const ORDERED_LIST_ITEM_PATTERN = "/^([0-9]+)\. ?(.*)?/";
-    const CODE_BLOCK_OPEN_PATTERN = "/```(.\S*)*/";
-    const PREG_MATCH_FOUND = 1;
+    public const HEADING_PATTERN = "/^(#{1,6}) +(.*)/";
+    public const QUOTE_PATTERN = "/^> ?(.*)?/";
+    public const UNORDERED_LIST_ITEM_PATTERN = "/^- ?(.*)?/";
+    public const ORDERED_LIST_ITEM_PATTERN = "/^([0-9]+)\. ?(.*)?/";
+    public const CODE_BLOCK_OPEN_PATTERN = "/```(.\S*)*/";
+    public const PREG_MATCH_FOUND = 1;
 
     /** @var array<string, Closure> */
     protected array $extensions = [];
@@ -50,6 +50,7 @@ class BlockParser
 
                 if (preg_match(self::CODE_BLOCK_OPEN_PATTERN, $nextLine) === self::PREG_MATCH_FOUND) {
                     $next();
+
                     return new CodeBlock(implode("\n", $code), language: $matches[1] ?? null);
                 }
 

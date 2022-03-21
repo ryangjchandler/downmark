@@ -9,14 +9,14 @@ class InlineParser
 {
     use Macroable;
 
-    const LINK_PATTERN = "/\[(.*?)\]\((\S?)+\)/";
-    const IMG_PATTERN = "/!\[(.*?)\]\((\S?)+\)/";
-    const BOLD_PATTERN = "/\*{2}(.*?)\*{2}/";
-    const STRONG_EM_PATTERN = "/\*{3}(.*?)\*{3}/";
-    const STRIKE_PATTERN = "/~{2}(.*?)\~{2}/";
-    const EM_PATTERN = "/_{1}(.*?)\_{1}/";
-    const CODE_PATTERN = "/\s`{1}(.*?)`{1}\s/";
-    const PREG_MATCH_FOUND = 1;
+    public const LINK_PATTERN = "/\[(.*?)\]\((\S?)+\)/";
+    public const IMG_PATTERN = "/!\[(.*?)\]\((\S?)+\)/";
+    public const BOLD_PATTERN = "/\*{2}(.*?)\*{2}/";
+    public const STRONG_EM_PATTERN = "/\*{3}(.*?)\*{3}/";
+    public const STRIKE_PATTERN = "/~{2}(.*?)\~{2}/";
+    public const EM_PATTERN = "/_{1}(.*?)\_{1}/";
+    public const CODE_PATTERN = "/\s`{1}(.*?)`{1}\s/";
+    public const PREG_MATCH_FOUND = 1;
 
     /** @var array<string, \Closure> */
     protected static $extensions = [];

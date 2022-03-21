@@ -9,7 +9,6 @@ class ListItem extends Block
 {
     public function __construct(public string $content, public ListItemType $type, public ?int $i = null)
     {
-
     }
 
     public function toHtml(): string

@@ -6,7 +6,6 @@ class CodeBlock extends Block
 {
     public function __construct(public ?string $code = null, public ?string $language = null)
     {
-
     }
 
     public function toHtml(): string

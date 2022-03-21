@@ -16,9 +16,10 @@ class Downmark
     protected array $lines = [];
 
     public function __construct(
-        protected BlockParser $blockParser = new BlockParser,
-        protected Optimizer $optimizer = new Optimizer,
-    ) {}
+        protected BlockParser $blockParser = new BlockParser(),
+        protected Optimizer $optimizer = new Optimizer(),
+    ) {
+    }
 
     public function block(string $pattern, Closure $callback): static
     {
@@ -54,7 +55,7 @@ class Downmark
             $line = $lines[$i];
 
             if (trim($line) === '') {
-                $ast[] = new Blank;
+                $ast[] = new Blank();
 
                 continue;
             }

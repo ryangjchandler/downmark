@@ -8,7 +8,6 @@ class OrderedList extends Block
 {
     public function __construct(public array $items = [])
     {
-
     }
 
     public function toHtml(): string

@@ -8,7 +8,6 @@ class NoticeBlock extends Block
 {
     public function __construct(public ?string $content = '', public string $type = 'info')
     {
-
     }
 
     public function toHtml(): string
