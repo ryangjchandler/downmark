@@ -103,6 +103,32 @@ Downmark::create()
 
 The callback function should return a `string`. This will be used to replace the regular-expression match.
 
+### Preprocessors
+
+A preprocessor is any class that implements the `Downmark\Interfaces\Preprocessor` interface.
+
+```php
+use Downmark\Interfaces\Preprocessor;
+use Downmark\Blocks\Block;
+use Downmark\Blocks\Paragraph;
+
+class RickRoller implements Preprocessor
+{
+    public function preprocess(Block $block): Block
+    {
+        if (! $block instanceof Paragraph) {
+            return $block;
+        }
+
+        $block->content = 'Rick rolled!';
+
+        return $block;
+    }
+}
+```
+
+The `RickRoller` class above will receive each `Block` in the document. It can then modify the block, return a new block or leave it as it is. This preprocessor will replace the content inside of all paragraph blocks with [`Rick rolled!`](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+
 ## Testing
 
 ```bash
