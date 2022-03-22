@@ -21,7 +21,7 @@ class RickRoll implements Preprocessor
 
 test('preprocessor can modify block', function () {
     $parser = Downmark::create()
-        ->preprocessor(new RickRoll);
+        ->preprocessor(new RickRoll());
 
     expect($parser->parse(<<<'md'
     Hello, world!
