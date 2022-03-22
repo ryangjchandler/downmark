@@ -5,6 +5,7 @@ namespace Downmark;
 use Closure;
 use Downmark\Blocks\Blank;
 use Downmark\Blocks\Block;
+use Downmark\Interfaces\Preprocessor;
 use Downmark\Parsers\BlockParser;
 use Downmark\Parsers\InlineParser;
 use Downmark\Parsers\Optimizer;
@@ -15,10 +16,19 @@ class Downmark
 {
     protected array $lines = [];
 
+    protected array $preprocessors = [];
+
     public function __construct(
         protected BlockParser $blockParser = new BlockParser(),
         protected Optimizer $optimizer = new Optimizer(),
     ) {
+    }
+
+    public function preprocessor(Preprocessor $preprocessor): static
+    {
+        $this->preprocessors[$preprocessor::class] = $preprocessor;
+
+        return $this;
     }
 
     public function block(string $pattern, Closure $callback): static
@@ -72,6 +82,12 @@ class Downmark
         }
 
         $ast = $this->optimizer->optimize($ast);
+
+        foreach ($ast as &$block) {
+            foreach ($this->preprocessors as $preprocessor) {
+                $block = $preprocessor->preprocess($block);
+            }
+        }
 
         return implode(PHP_EOL, array_map(fn (Block $block) => $block->toHtml(), $ast));
     }
