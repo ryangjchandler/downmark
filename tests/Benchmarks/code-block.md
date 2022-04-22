@@ -1,4 +1,4 @@
-```html
+```html   
 <div x-data="data()">
     <span x-text="hello()"></span>
 </div>

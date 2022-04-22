@@ -22,7 +22,7 @@ class BlockParser
     public const QUOTE_PATTERN = "/^> ?(.*)?/";
     public const UNORDERED_LIST_ITEM_PATTERN = "/^- ?(.*)?/";
     public const ORDERED_LIST_ITEM_PATTERN = "/^([0-9]+)\. ?(.*)?/";
-    public const CODE_BLOCK_OPEN_PATTERN = "/```(.\S*)*/";
+    public const CODE_BLOCK_OPEN_PATTERN = "/```(.\S+)*/";
     public const PREG_MATCH_FOUND = 1;
 
     /** @var array<string, Closure> */
