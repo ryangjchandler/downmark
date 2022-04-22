@@ -3,7 +3,7 @@
 namespace Downmark\Parsers;
 
 use Closure;
-use Spatie\Macroable\Macroable;
+use Illuminate\Support\Traits\Macroable;
 
 class InlineParser
 {

@@ -11,7 +11,7 @@ use Downmark\Blocks\ListItem;
 use Downmark\Blocks\Paragraph;
 use Downmark\Enums\HeadingLevel;
 use Downmark\Enums\ListItemType;
-use Spatie\Macroable\Macroable;
+use Illuminate\Support\Traits\Macroable;
 
 /** @internal */
 class BlockParser
