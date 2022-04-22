@@ -2,6 +2,10 @@
 
 All notable changes to `downmark` will be documented in this file.
 
+## v0.0.4 - 2022-04-22
+
+**Full Changelog**: https://github.com/ryangjchandler/downmark/compare/v0.0.3...v0.0.4
+
 ## v0.0.3 - 2022-04-22
 
 **Full Changelog**: https://github.com/ryangjchandler/downmark/compare/v0.0.2...v0.0.3
