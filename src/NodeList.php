@@ -8,7 +8,8 @@ class NodeList implements Node
 {
     public function __construct(
         protected array $nodes = [],
-    ) {}
+    ) {
+    }
 
     public function getNodes(): array
     {

@@ -6,5 +6,6 @@ class Downmark
 {
     public function __construct(
         protected Parser $parser,
-    ) {}
+    ) {
+    }
 }

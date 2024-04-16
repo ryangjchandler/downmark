@@ -10,7 +10,8 @@ class Heading implements BlockNode
     public function __construct(
         public HeadingLevel $level,
         public NodeList $content,
-    ) {}
+    ) {
+    }
 
     public static function produce(array $matches, Parser $parser): Node
     {

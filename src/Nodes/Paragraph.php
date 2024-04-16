@@ -9,7 +9,8 @@ class Paragraph implements BlockNode
 {
     public function __construct(
         protected NodeList $children,
-    ) {}
+    ) {
+    }
 
     public static function getStartPattern(): string
     {

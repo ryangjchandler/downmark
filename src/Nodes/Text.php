@@ -8,7 +8,8 @@ class Text implements Node
 {
     public function __construct(
         public string $text,
-    ) {}
+    ) {
+    }
 
     public static function produce(array $matches, Parser $parser): Text
     {
